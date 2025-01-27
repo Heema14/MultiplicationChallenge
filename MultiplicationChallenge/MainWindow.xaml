@@ -1,0 +1,190 @@
+﻿<Window x:Class="MultiplicationChallenge.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        
+        WindowStartupLocation="CenterScreen"
+        FontFamily="{StaticResource AlmaraiRegular}"
+        Title="تحدي الضرب"
+        Height="500" Width="600"
+        FlowDirection="RightToLeft"
+        Loaded="Window_Loaded"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        ResizeMode="CanResizeWithGrip">
+
+
+    <Border CornerRadius="12">
+        <Border.Background>
+            <ImageBrush ImageSource="/Img/bg1.jpg" Stretch="Fill" />
+        </Border.Background>
+        <Border CornerRadius="10" BorderBrush="Azure" BorderThickness="2" Opacity="0.90">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#FF346766" Offset="0"></GradientStop>
+                    <GradientStop Color="#FF201E25" Offset="0.75"></GradientStop>
+                    <GradientStop Color="#423F3E" Offset="1"></GradientStop>
+                </LinearGradientBrush>
+            </Border.Background>
+
+
+            <Grid Margin="5 10 0 10">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.45*"/>
+                    <RowDefinition Height="1.2*"/>
+                    <RowDefinition Height="0.8*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+
+                <Canvas>
+                    <Image Canvas.Top="0" ToolTip="كتم صوت الخلفية" Canvas.Right="5" Width="35" MouseLeftButtonDown="Image_MouseLeftButtonDown" Cursor="Hand" Source="/Img/mute.png" />
+
+                    <StackPanel Canvas.Top="0" Canvas.Left="0" Orientation="Horizontal">
+                        <Image x:Name="exitApp" MouseLeftButtonDown="exitApp_MouseLeftButtonDown" ToolTip="اغلاق التطبيق" Cursor="Hand" Width="35" Margin="0 0 8 0" Source="/Img/x.png" />
+                        <Image x:Name="minApp" MouseLeftButtonDown="minApp_MouseLeftButtonDown" ToolTip="تصغير الشاشة" Cursor="Hand" Width="35" Source="/Img/minus.png" />
+                    </StackPanel>
+                </Canvas>
+
+
+                <TextBlock Grid.Row="0" Text="تحدي الضرب" FontSize="36" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+
+                <StackPanel Grid.Row="1" Margin="0 10 0 0" VerticalAlignment="Top" Orientation="Vertical">
+
+                    <TextBlock Text="اختر جدول لللإختبار به من 1 - 12" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Foreground="White"/>
+
+                    <StackPanel Name="TblNum" VerticalAlignment="Top" HorizontalAlignment="Center" Orientation="Vertical" Margin="0 20 0 0">
+
+                        <StackPanel Orientation="Horizontal" Margin="0 0 0 5">
+                            <Slider Name="MultiplierSlider" Minimum="1" Maximum="12" TickFrequency="1" IsSnapToTickEnabled="True" Value="2" Width="300" ValueChanged="MultiplierSlider_ValueChanged"/>
+
+                            <TextBlock x:Name="txtshowSlid" Foreground="White" Text="2" FontSize="18" Margin="10 0 10 0"/>
+                        </StackPanel>
+
+
+                        <CheckBox Foreground="White" Name="AllNusCheck" Content="كل الجداول" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" IsChecked="False" Cursor="Hand"/>
+                    </StackPanel>
+
+                    <Grid Margin="50 20 50 0" Height="20" Background="Black">
+                        <ProgressBar IsIndeterminate="False" Minimum="0" Maximum="10" Value="0" Name="pgProgress" Foreground="#FF98A240" Background="DimGray" BorderBrush="#FF195A26" />
+                        <TextBlock Text="{Binding ElementName=pgProgress, Path=Value, StringFormat={}{0} / 10}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="SemiBold" />
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Name="chooseQue" Orientation="Vertical" VerticalAlignment="Top">
+                    <Label Name="QuestionLabel" Content="ما هو 3 × 4؟" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Foreground="Gainsboro"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+
+                        <Border CornerRadius="8" Cursor="Hand" Height="45" Width="100">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="1.2,0.5" StartPoint="0.5,2">
+                                    <GradientStop Color="#FF4491AB" Offset="0.04"/>
+                                    <GradientStop Color="#FFA1C85E" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Button Template="{DynamicResource CustomBtn}" Name="AnswerBtn1" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" Content="6" FontSize="22" Width="80" Height="35" Click="AnswerButton_Click">
+                            </Button>
+                        </Border>
+
+                        <Border CornerRadius="8" Cursor="Hand" Margin="10 0 0 0" Height="45" Width="100">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.5,0.9" StartPoint="0.8,1.5">
+                                    <GradientStop Color="#FF4491AB" Offset="0.04"/>
+                                    <GradientStop Color="#FFA1C85E" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Button Template="{DynamicResource CustomBtn}" Name="AnswerBtn2" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" Content="10" FontSize="22" Width="80" Height="35" Click="AnswerButton_Click">
+                            </Button>
+                        </Border>
+
+                        <Border CornerRadius="8" Margin="10 0" Cursor="Hand" Height="45" Width="100">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="0.3,0.5" StartPoint="0.2,6">
+                                    <GradientStop Color="#FF4491AB" Offset="0.6"/>
+                                    <GradientStop Color="#FFA1C85E" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Button Template="{DynamicResource CustomBtn}" Name="AnswerBtn3" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" Content="12" FontSize="22" Width="80" Height="35" Click="AnswerButton_Click">
+                            </Button>
+                        </Border>
+
+                        <Border CornerRadius="8" Cursor="Hand" Height="45" Width="100">
+                            <Border.Background>
+                                <LinearGradientBrush EndPoint="1.0,0.7" StartPoint="0.8,1.6">
+                                    <GradientStop Color="#FF4491AB" Offset="0.04"/>
+                                    <GradientStop Color="#FFA1C85E" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <Button Template="{DynamicResource CustomBtn}" Name="AnswerBtn4" Background="Transparent" BorderBrush="Transparent" BorderThickness="1" Content="2" FontSize="22" Width="80" Height="35" Click="AnswerButton_Click">
+                            </Button>
+                        </Border>
+
+                    </StackPanel>
+
+                </StackPanel>
+
+
+                <StackPanel Grid.Row="3" Orientation="Vertical" VerticalAlignment="Bottom">
+                    <Button Name="StartQuizBtn" ToolTip="اضغط هنا ليبدأ الإخبار 🤗" IsDefault="True" BorderThickness="1,1,3,1" ForceCursor="True" Foreground="White" Background="#FF2B2D2B" FontSize="18" Width="150" Height="40" Cursor="Hand" Margin="0 0 0 20" Click="StartQuizButton_Click">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="10">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                        بدء الاختبار
+                    </Button>
+
+                    <TextBlock Name="txtFeedback" Margin="0 0 0 10" FontSize="18" FontWeight="Bold" 
+                   HorizontalAlignment="Center" Text="..." Foreground="Wheat"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+
+                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                            <TextBlock Foreground="White" Text="صحيحة: " FontSize="20" FontWeight="Bold"/>
+                            <TextBlock Name="CorrectCount" Text="0" FontSize="20" Foreground="#FF7B8A7B"/>
+                        </StackPanel>
+
+                        <TextBlock Foreground="White" Margin="10 0" Text="|" FontSize="20" FontWeight="Bold"/>
+
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Foreground="White" Text="خاطئة: " FontSize="20" FontWeight="Bold"/>
+                            <TextBlock Name="WrongCount" Text="0" FontSize="20" Foreground="#FF7B8A7B"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <Canvas>
+                        <Image Canvas.Bottom="0" Canvas.Right="0" Width="100" Source="/Img/vater1.png" RenderTransformOrigin="0.5,0.5" >
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="-1"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+
+                        <Image Canvas.Bottom="0" Canvas.Left="0" Width="80" Source="/Img/vater2.png" RenderTransformOrigin="0.5,0.5">
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="-1"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
+                    </Canvas>
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+    </Border>
+
+</Window>
